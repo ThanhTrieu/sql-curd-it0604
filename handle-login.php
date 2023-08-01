@@ -1,4 +1,6 @@
 <?php
+// session
+session_start();
 // nhung file database vao day
 require_once("database.php");
 
@@ -42,6 +44,11 @@ function handle()
             $infoUser = checkLogin($username, $password);
             if(!empty($infoUser)){
                 // dang nhap thanh cong
+                // luu thong tin nguoi dung vao session
+                $_SESSION['username'] = $infoUser['username'];
+                $_SESSION['email']    = $infoUser['email'];
+                $_SESSION['role_id']  = $infoUser['role_id'];
+
                 header("Location:dashboard.php");
             } else {
                 // dang nhap khong thanh cong

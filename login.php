@@ -18,10 +18,21 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+    <?php
+        $state = $_GET['state'] ?? null;
+    ?>
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 offset-3">
+
+                <?php if($state === 'fail'): ?>
+                    <p class="text-center my-2"> username or password empty !</p>
+                <?php endif; ?>
+
+                <?php if($state === 'error'): ?>
+                    <p class="text-center my-2"> Account invalid </p>
+                <?php endif; ?>
+
                 <form class="border p-3 mt-3" method="POST" action="./handle-login.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
