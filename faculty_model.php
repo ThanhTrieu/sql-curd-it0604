@@ -7,7 +7,7 @@ function deleteFaculty($id = 0){
     $sql = "DELETE FROM `khoa` WHERE `id` = :id ";
     $stmt = $db->prepare($sql);
     if($stmt){
-        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         if($stmt->execute()){
             $checkDelete = true;
         }

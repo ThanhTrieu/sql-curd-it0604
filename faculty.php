@@ -72,10 +72,10 @@ function handleAdd() {
             $dataInsert['status'] = $status;
             $insert = insertFaculty($dataInsert);
             if($insert){
-                header("Location:faculty.php");
+                header("Location:faculty.php?state=success");
             } else {
                 // khong thanh cong
-                header("Location:faculty.php?m=add&state=error");
+                header("Location:faculty.php?m=add&state=fail");
             }
         } else {
             $_SESSION['error_faculty'] = $errors;

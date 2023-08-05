@@ -1,8 +1,16 @@
 <?php require("views/header.php"); ?>
 
+<?php $state = $_GET['state'] ?? null; ?>
+
 <div class="content">
     <h1> CMS - BTEC</h1>
     <a class="btn btn-primary" href="./faculty.php?m=add"> Add </a>
+    <?php if($state === 'success'): ?>
+        <p class="text-success mt-3"> Thao tac thanh cong !</p>
+    <?php endif; ?>
+    <?php if($state === 'fail'): ?>
+        <p class="text-danger mt-3"> Thao tac that bai !</p>
+    <?php endif; ?>
     <table class="table my-3">
         <thead>
             <tr>
