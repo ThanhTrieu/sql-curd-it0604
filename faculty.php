@@ -19,8 +19,23 @@ switch($method){
     case 'handle-add':
         handleAdd();
         break;
+    case 'delete':
+        handleDelete();
+        break;
 }
 
+function handleDelete(){
+    if(isset($_POST['btnDel'])){
+        $id = $_POST['id'] ?? 0;
+        $id = is_numeric($id) && $id > 0 ? $id : 0;
+        $del = deleteFaculty($id);
+        if($del){
+            header("Location:faculty.php?state=success");
+        } else {
+            header("Location:faculty.php?state=fail");
+        }
+    }
+}
 function handleAdd() {
     if(isset($_POST['extra_id'])){
         $code = $_POST['extra_id'];
@@ -72,5 +87,6 @@ function add()  {
     require("views/faculty_add_view.php");
 }
 function index(){
+    $faculties = getListFaculty();
     require("views/faculty_view.php");
 }

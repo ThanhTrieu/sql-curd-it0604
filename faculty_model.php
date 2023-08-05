@@ -1,5 +1,36 @@
 <?php
 require "database.php";
+
+function deleteFaculty($id = 0){
+    $db = connection();
+    $checkDelete = false;
+    $sql = "DELETE FROM `khoa` WHERE `id` = :id ";
+    $stmt = $db->prepare($sql);
+    if($stmt){
+        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+        if($stmt->execute()){
+            $checkDelete = true;
+        }
+    }
+    disconnection($db);
+    return $checkDelete;
+}
+function getListFaculty(){
+    // lay all du lieu tu database
+    $data = [];
+    $db = connection();
+    $sql = "SELECT * FROM `khoa` GROUP BY `id` DESC";
+    $stmt = $db->prepare($sql);
+    if($stmt){
+        if($stmt->execute()){
+            if($stmt->rowCount() > 0){
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+    }
+    disconnection($db);
+    return $data;
+}
 function insertFaculty($dataInsert = []){
     $code = $dataInsert['code'];
     $name = $dataInsert['name'];
