@@ -5,7 +5,16 @@
     <a class="btn btn-primary" href="./faculty.php"> List Faculty </a>
     <div class="row">
         <div class="col">
-            <form>
+
+            <?php if (!empty($_SESSION['error_faculty'])) : ?>
+                <ul class="my-3">
+                    <?php foreach ($_SESSION['error_faculty'] as $error) : ?>
+                        <li class="text-danger"><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
+            <form action="faculty.php?m=handle-add" method="post">
                 <div class="mb-3">
                     <label class="form-label">CODE</label>
                     <input type="text" class="form-control" name="extra_id">
@@ -24,7 +33,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Status</label>
-                    <select class="form-select">
+                    <select class="form-select" name="status">
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                     </select>
