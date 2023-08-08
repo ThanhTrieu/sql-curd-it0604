@@ -22,6 +22,22 @@ switch($method){
     case 'delete':
         handleDelete();
         break;
+    case 'edit':
+        edit();
+        break;
+}
+
+function edit(){
+    $id = $_GET['id'] ?? null;
+    $id = is_numeric($id) ? $id : 0;
+    $info = getDetailFacultyById($id);
+
+    if($id <= 0 || empty($info)){
+        require("views/error_view.php");
+    } else {
+
+        require("views/faculty_edit_view.php");
+    }
 }
 
 function handleDelete(){

@@ -33,7 +33,7 @@
                     <span class="badge bg-primary"><?= $item['status'] == 1 ? 'Active' : 'Inactive'; ?></span>
                 </td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="#"> Edit</a>
+                    <a class="btn btn-info btn-sm" href="./faculty.php?m=edit&id=<?= $item['id']; ?>"> Edit</a>
                 </td>
                 <td>
                     <form action="faculty.php?m=delete" method="post">

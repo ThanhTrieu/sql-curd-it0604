@@ -1,6 +1,22 @@
 <?php
 require "database.php";
 
+function getDetailFacultyById($id = 0){
+    $db = connection();
+    $data = [];
+    $sql = "SELECT * FROM `khoa` WHERE `id` = :id ";
+    $stmt = $db->prepare($sql);
+    if($stmt){
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        if($stmt->execute()){
+            if($stmt->rowCount() > 0){
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+        }
+    }
+    disconnection($db);
+    return $data;
+}
 function deleteFaculty($id = 0){
     $db = connection();
     $checkDelete = false;
