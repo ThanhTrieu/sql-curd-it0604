@@ -1,6 +1,33 @@
 <?php
 require "database.php";
 
+function updateFacultyById($dataUpdate, $id){
+    $code   = $dataUpdate['code'];
+    $name   = $dataUpdate['name'];
+    $leader = $dataUpdate['leader'];
+    $openDate = $dataUpdate['open_date'];
+    $status   = $dataUpdate['status'];
+    $updateTime = date("Y-m-d H:i:s");
+    $checkUpdate = false;
+    $sql = "UPDATE `khoa` SET `extra_id` = :extra_id, `name` = :nameFaculty, `leader` = :leader, `open_date` = :open_date, `status` = :statusFaculty, `updated_at` = :updated_at WHERE `id` = :id";
+    $db = connection();
+    $stmt = $db->prepare($sql);
+    if($stmt){
+        $stmt->bindParam(":extra_id", $code, PDO::PARAM_STR);
+        $stmt->bindParam(":nameFaculty", $name, PDO::PARAM_STR);
+        $stmt->bindParam(":leader", $leader, PDO::PARAM_STR);
+        $stmt->bindParam(":open_date", $openDate, PDO::PARAM_STR);
+        $stmt->bindParam(":statusFaculty", $status, PDO::PARAM_INT);
+        $stmt->bindParam(":updated_at", $updateTime, PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        if($stmt->execute()){
+            $checkUpdate = true;
+        }
+    }
+    disconnection($db);
+    return $checkUpdate;
+}
+
 function getDetailFacultyById($id = 0){
     $db = connection();
     $data = [];

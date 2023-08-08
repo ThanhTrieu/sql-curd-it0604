@@ -25,6 +25,66 @@ switch($method){
     case 'edit':
         edit();
         break;
+    case 'handle-edit':
+        handleEdit();
+        break;
+}
+
+function handleEdit(){
+    if(isset($_POST['extra_id'])){
+        // thuc su bam cap nhat du lieu
+        $id   = $_GET['id'] ?? null;
+        $id   = is_numeric($id) ? $id : 0;
+        $code = $_POST['extra_id'];
+        $name = $_POST['name'];
+        $leader   = $_POST['leader'];
+        $openDate = $_POST['open_date'];
+        $status   = $_POST['status'];
+
+        // kiem tra du lieu
+        $errors = [];
+        if(empty($code)){
+            $errors['code'] = 'Vui long nhap ma khoa';
+        }
+        if(empty($name)){
+            $errors['name'] = 'Vui long nhap ten khoa';
+        }
+        if(empty($leader)){
+            $errors['leader'] = 'Vui long nhap ten truong khoa';
+        }
+        if(empty($openDate)){
+            $errors['open_date'] = 'Vui long chon ngay thanh lap khoa';
+        }
+        if($status !== '1' && $status !== '0'){
+            $errors['status'] = 'Vui long chon trang thai';
+        }
+
+        if(empty($errors)){
+            // khong co loi tu phia nguoi dung
+            if(!empty($_SESSION['error_faculty'])){
+                unset($_SESSION['error_faculty']);
+            }
+            $dataUpdate = [];
+            $dataUpdate['code'] = $code;
+            $dataUpdate['name'] = $name;
+            $dataUpdate['leader'] = $leader;
+            $dataUpdate['open_date'] = $openDate;
+            $dataUpdate['status'] = $status;
+            $update = updateFacultyById($dataUpdate, $id);
+            if($update){
+                // thanh cong
+                header("Location:faculty.php?state=success");
+            } else {
+                // ko thanh cong
+                header("Location:faculty.php?m=edit&id={$id}&state=fail");
+            }
+        } else {
+            // co loi tu phia nguoi dung
+            $_SESSION['error_faculty'] = $errors;
+            header("Location:faculty.php?m=edit&id={$id}");
+        }
+
+    }
 }
 
 function edit(){

@@ -14,31 +14,31 @@
                 </ul>
             <?php endif; ?>
 
-            <form action="faculty.php?m=handle-add" method="post">
+            <form action="faculty.php?m=handle-edit&id=<?= $id; ?>" method="post">
                 <div class="mb-3">
                     <label class="form-label">CODE</label>
-                    <input type="text" class="form-control" name="extra_id">
+                    <input value="<?= $info['extra_id']; ?>" type="text" class="form-control" name="extra_id">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input value="<?= $info['name']; ?>" type="text" class="form-control" name="name">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Leader</label>
-                    <input type="text" class="form-control" name="leader">
+                    <input value="<?= $info['leader']; ?>" type="text" class="form-control" name="leader">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Open date</label>
-                    <input type="date" class="form-control" name="open_date">
+                    <input value="<?= $info['open_date']; ?>" type="date" class="form-control" name="open_date">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <select class="form-select" name="status">
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
+                        <option value="1" <?= $info['status'] == 1 ? "selected" : "";  ?> >Active</option>
+                        <option value="0" <?= $info['status'] == 0 ? "selected" : "";  ?>>Inactive</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>
